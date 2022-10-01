@@ -7,6 +7,11 @@ import 'package:ecommerce_app/src/features/sign_in/email_password_sign_in_state.
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+ //Enum of all routes : Routing by name (code will be less error prone)
+ enum Approute {
+  home, account,orders,signin,cart
+}
+
 final GoRouter router =
     GoRouter(initialLocation: '/', debugLogDiagnostics: true, routes: <GoRoute>[
   GoRoute(
@@ -15,7 +20,7 @@ final GoRouter router =
           const ProductsListScreen()), //this will provide a default transition (right to left)
       routes: [
         GoRoute(
-          name: 'cart',
+          name: Approute.home.name,
           path: 'cart',
           pageBuilder: ((context, state) => MaterialPage<void>(
                 // passed material page to show full screen route(close icon)
@@ -25,7 +30,7 @@ final GoRouter router =
               )),
         ),
         GoRoute(
-          name: 'account',
+          name: Approute.account.name,
           path: 'account',
           pageBuilder: ((context, state) => MaterialPage<void>(
                 key: state.pageKey,
@@ -34,7 +39,7 @@ final GoRouter router =
               )),
         ),
         GoRoute(
-          name: 'orders',
+          name: Approute.orders.name,
           path: 'orders',
           pageBuilder: ((context, state) => MaterialPage<void>(
                 key: state.pageKey,
@@ -44,7 +49,7 @@ final GoRouter router =
         ),
         GoRoute(
           path: 'signin',
-          name: 'signin',
+          name: Approute.signin.name,
           pageBuilder: ((context, state) => MaterialPage<void>(
                 key: state.pageKey,
                 fullscreenDialog: true,

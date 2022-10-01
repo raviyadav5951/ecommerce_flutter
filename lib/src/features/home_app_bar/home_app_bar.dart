@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/src/constants/breakpoints.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
 import 'package:ecommerce_app/src/models/app_user.dart';
+import 'package:ecommerce_app/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/src/common_widgets/action_text_button.dart';
 import 'package:ecommerce_app/src/features/home_app_bar/more_menu_button.dart';
@@ -51,19 +52,19 @@ class HomeAppBar extends StatelessWidget with PreferredSizeWidget {
               //     builder: (_) => const OrdersListScreen(),
               //   ),
               // ),
-              onPressed: () => context.go('/orders'),
+              onPressed: () => context.goNamed(Approute.account.name),
             ),
             ActionTextButton(
               key: MoreMenuButton.accountKey,
               text: 'Account'.hardcoded,
               
-              onPressed: () => context.go('/account'),
+              onPressed: () => context.goNamed(Approute.account.name),
             ),
           ] else
             ActionTextButton(
                 key: MoreMenuButton.signInKey,
                 text: 'Sign In'.hardcoded,
-                onPressed: () => context.go('/signin')
+                onPressed: () => context.goNamed(Approute.signin.name)
                 )
         ],
       );
