@@ -13,7 +13,8 @@ void main() async {
     // turn off the # in the URLs on the web
     GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
     // * Entry point of the app
-    runApp(MyApp());
+    runApp(const MyApp());
+
     // * This code will present some error UI if any uncaught exception happens
     FlutterError.onError = (FlutterErrorDetails details) {
       FlutterError.presentError(details);
