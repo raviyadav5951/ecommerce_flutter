@@ -37,4 +37,11 @@
 - Products screen we have used Consumer to listen to the changes made by provider and only update that part of widget tree instead. And also notice the parent widget class still extends StatelessWidget
 - ConsumerWidget vs Consumer :
   ConsumerWidget rebuild complete widget and Consumer rebuild part of the widget and gives more control. When widgets are small you can use ConsumerWidget.
--
+
+### Future or StreamProvider
+- Two options available for using Future and Stream but we have to use asyncsnapshot to render the UI based on changes but the syntax is quite verbose
+- So as a solution which RiverPod provides is creating a StreamProvider or FutureProvider.
+- We created StreamProvider and FutureProvider methods to query the provider and it returns AsyncValue .
+- This AsyncValue provides us the error,loading and data functions which gives us hint to add the function for all cases when app is in loading state, error state and with data state.
+
+
