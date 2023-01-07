@@ -1,16 +1,27 @@
 # Flutter eCommerce App
 
-This is the official Flutter Project for this course:
+## Branch: replace_router
+- We replaced navigation package codes with go_router package code.
 
-- [Complete Flutter Course Bundle](https://codewithandrea.com/courses/complete-flutter-bundle/)
+## Branch: architecture
+- We are choosing feature first architecture instead of layer first architecture. So in layman language we create a folder with name of feature e.g "products" and then create subfolders with layer name like "presentation" and "models" and "repository".
 
-This will include a full-stack eCommerce app using Flutter & Firebase:
+--products
 
-![eCommerce App Preview](/.github/images/ecommerce-app-preview.png)
+---presentation
 
-A Flutter web preview of the app can be found here:
+------ ui files
 
-- [Flutter Web Demo](https://my-shop-ecommerce-stg.web.app/)
+---models
 
+-----dart model classes
 
-### [LICENSE: MIT](../LICENSE.md)
+- We will also create Data layer which is responsible for contacting to outside world
+-- like REST APi
+-- Local dbs
+-- Local file system
+
+- These sources always return the data in the format which is not directly accessed by the whole app code so we deal with desearialization and convert the objects to DTOs and these DTOs uses repositories to be accessed by whole app.(Model classes)
+
+- We have created private constructor of Products to restrict making new instances .
+
