@@ -25,6 +25,16 @@ final productsListFutureProvider = FutureProvider<List<Product>>((ref) {
   return productsList;
 });
 
+/// Stream provider using the family modifier 
+/// modifier is used to send parameters to provider method
+
+final productProvider = StreamProvider.family<Product?,String>((ref,id) {
+  final productsRepoProvider = ref.watch(productsRepositoryProvider);
+  final product=productsRepoProvider.watchProduct(id);
+  return product;
+});
+
+
 class FakeProductsRepository {
   final List<Product> _products = kTestProducts;
 

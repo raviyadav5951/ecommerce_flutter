@@ -21,6 +21,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// Here we just want to rebuild the widget that is inside the scaffold or widget that depends on our provider.
 /// Not the whole product screen
 /// So we will use Consumer here
+
+/// Here Family modifier is being used for the StreamProvider
+/// Where we are passing productId to the strean
+/// ref.watch(productProvider(productId))
 class ProductScreen extends StatelessWidget {
   const ProductScreen({Key? key, required this.productId}) : super(key: key);
   final String productId;
@@ -31,10 +35,12 @@ class ProductScreen extends StatelessWidget {
       appBar: const HomeAppBar(),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? _) {
-          final productsRepository = ref.watch(productsRepositoryProvider);
-          final product = productsRepository.getProduct(productId);
+          ///Using the family modifier for stream provider
+          final productValue = ref.watch(productProvider(productId));
 
-          return product == null
+          /// now adding all the states for the AsyncValue
+          return productValue.when(
+            data: (product)=>product == null
               ? EmptyPlaceholderWidget(
                   message: 'Product not found'.hardcoded,
                 )
@@ -46,7 +52,10 @@ class ProductScreen extends StatelessWidget {
                     ),
                     ProductReviewsList(productId: productId),
                   ],
-                );
+                ),
+            error: ((error, stackTrace) => Center(child: ErrorWidget(error.toString()))),
+            loading: ()=>const Center(child: CircularProgressIndicator()),
+          );
         },
       ),
     );
