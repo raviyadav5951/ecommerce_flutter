@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:ecommerce_app/src/common_widgets/async_value_widget.dart';
 import 'package:ecommerce_app/src/common_widgets/error_message_widget.dart';
 import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
 import 'package:ecommerce_app/src/features/products/presentation/products_list/product_card.dart';
@@ -11,6 +12,8 @@ import 'package:ecommerce_app/src/constants/app_sizes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../domain/product.dart';
+
 /// A widget that displays the list of products that match the search query.
 class ProductsGrid extends ConsumerWidget {
   const ProductsGrid({Key? key}) : super(key: key);
@@ -18,7 +21,34 @@ class ProductsGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsRepository = ref.watch(productsListStreamProvider);
-    return productsRepository.when(
+
+    //Generic AsyncValueWidget 
+   return AsyncValueWidget<List<Product>>(
+      value: productsRepository,
+      data: (products) => products.isEmpty
+            ? Center(
+                child: Text(
+                  'No products found'.hardcoded,
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              )
+            : ProductsLayoutGrid(
+                itemCount: products.length,
+                itemBuilder: (_, index) {
+                  final product = products[index];
+                  return ProductCard(
+                    product: product,
+                    onPressed: () => context.goNamed(
+                      AppRoute.product.name,
+                      params: {'id': product.id},
+                    ),
+                  );
+                },
+              ),
+    );
+
+    //Below is the old implementation without generic async provider
+    /* return productsRepository.when(
         data: (products) => products.isEmpty
             ? Center(
                 child: Text(
@@ -41,7 +71,7 @@ class ProductsGrid extends ConsumerWidget {
               ),
         error: ((error, stackTrace) =>
             Center(child: ErrorMessageWidget(error.toString()))),
-        loading: () => const Center(child: CircularProgressIndicator()));
+        loading: () => const Center(child: CircularProgressIndicator())); */
   }
 }
 

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:ecommerce_app/src/constants/test_products.dart';
 import 'package:ecommerce_app/src/features/products/domain/product.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //created a riverpod provider
@@ -25,15 +28,21 @@ final productsListFutureProvider = FutureProvider<List<Product>>((ref) {
   return productsList;
 });
 
-/// Stream provider using the family modifier 
+/// Stream provider using the family modifier
 /// modifier is used to send parameters to provider method
-
-final productProvider = StreamProvider.family<Product?,String>((ref,id) {
+///Added autodispose
+final productProvider =
+    StreamProvider.autoDispose.family<Product?, String>((ref, id) {
+  // debugPrint('product provider created');
+  //ref.onDispose(() => debugPrint('productProvider disposed'));
+  // final link = ref.keepAlive();
+  // Timer(const Duration(seconds: 5), () {
+  //   link.close();
+  // });
   final productsRepoProvider = ref.watch(productsRepositoryProvider);
-  final product=productsRepoProvider.watchProduct(id);
+  final product = productsRepoProvider.watchProduct(id);
   return product;
 });
-
 
 class FakeProductsRepository {
   final List<Product> _products = kTestProducts;
@@ -52,7 +61,8 @@ class FakeProductsRepository {
   }
 
   Stream<List<Product>> watchProductsList() async* {
-    await Future.delayed(const Duration(seconds: 2)); //to show delay and test the provider loading case
+    await Future.delayed(const Duration(
+        seconds: 2)); //to show delay and test the provider loading case
     // return Stream.value(_products);
     yield _products;
   }

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/src/common_widgets/async_value_widget.dart';
 import 'package:ecommerce_app/src/constants/test_products.dart';
 import 'package:ecommerce_app/src/features/cart/presentation/add_to_cart/add_to_cart_widget.dart';
 import 'package:ecommerce_app/src/features/products/data/fake_products_repository.dart';
@@ -38,24 +39,44 @@ class ProductScreen extends StatelessWidget {
           ///Using the family modifier for stream provider
           final productValue = ref.watch(productProvider(productId));
 
-          /// now adding all the states for the AsyncValue
-          return productValue.when(
-            data: (product)=>product == null
-              ? EmptyPlaceholderWidget(
-                  message: 'Product not found'.hardcoded,
-                )
-              : CustomScrollView(
-                  slivers: [
-                    ResponsiveSliverCenter(
-                      padding: const EdgeInsets.all(Sizes.p16),
-                      child: ProductDetails(product: product),
-                    ),
-                    ProductReviewsList(productId: productId),
-                  ],
-                ),
-            error: ((error, stackTrace) => Center(child: ErrorWidget(error.toString()))),
-            loading: ()=>const Center(child: CircularProgressIndicator()),
+          /// Using Generic AsyncValueWidget
+
+         return AsyncValueWidget<Product?>(
+            value: productValue,
+            data: (product) => product == null
+                ? EmptyPlaceholderWidget(
+                    message: 'Product not found'.hardcoded,
+                  )
+                : CustomScrollView(
+                    slivers: [
+                      ResponsiveSliverCenter(
+                        padding: const EdgeInsets.all(Sizes.p16),
+                        child: ProductDetails(product: product),
+                      ),
+                      ProductReviewsList(productId: productId),
+                    ],
+                  ),
           );
+
+          /// now adding all the states for the AsyncValue
+          /* return productValue.when(
+            data: (product) => product == null
+                ? EmptyPlaceholderWidget(
+                    message: 'Product not found'.hardcoded,
+                  )
+                : CustomScrollView(
+                    slivers: [
+                      ResponsiveSliverCenter(
+                        padding: const EdgeInsets.all(Sizes.p16),
+                        child: ProductDetails(product: product),
+                      ),
+                      ProductReviewsList(productId: productId),
+                    ],
+                  ),
+            error: ((error, stackTrace) =>
+                Center(child: ErrorWidget(error.toString()))),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          ); */
         },
       ),
     );

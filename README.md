@@ -43,5 +43,13 @@
 - So as a solution which RiverPod provides is creating a StreamProvider or FutureProvider.
 - We created StreamProvider and FutureProvider methods to query the provider and it returns AsyncValue .
 - This AsyncValue provides us the error,loading and data functions which gives us hint to add the function for all cases when app is in loading state, error state and with data state.
+(Same we have created for RN app for managing all states like showing loader,showing error and success state)
+### Autodispose provider
+- Added autodispose.family on the product provider
+- ref.onDispose function can be checked for dispose callbacks
+- ref.keepAlive is used to dispose the provider after some duration.
 
+### Creating generic async value provider
+- Benefit of this is: when in future we decide to handle the UIs of error and loading state with some other custom widget then we just have to change the single generic provider instead of going in all the classes and changing the implementation.(Ch-4 ,video 10)
+- `products_grid.dart` contains the original implementation commented out and the new implementation with Generic AsycnValueWidget (recommended)
 
