@@ -1,0 +1,62 @@
+[
+  {
+    "id": "1",
+    "name": "Mumbai",
+    "state": "Maharashtra",
+    "enable":true
+  },
+  {
+    "id": "2",
+    "name": "Delhi",
+    "state": "Delhi",
+    "enable":true
+  },
+  {
+    "id": "3",
+    "name": "Bengaluru",
+    "state": "Karnataka",
+    "enable":false
+  },
+  {
+    "id": "4",
+    "name": "Ahmedabad",
+    "state": "Gujarat",
+    "enable":true
+  },
+  {
+    "id": "5",
+    "name": "Hyderabad",
+    "state": "Telangana",
+    "enable":true
+  },
+  {
+    "id": "6",
+    "name": "Chennai",
+    "state": "Tamil Nadu",
+    "enable":false
+  },
+  {
+    "id": "7",
+    "name": "Kolkata",
+    "state": "West Bengal",
+    "enable":false
+  },
+  {
+    "id": "8",
+    "name": "Pune",
+    "state": "Maharashtra",
+    "enable":true
+  },
+  {
+    "id": "9",
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "enable":false
+  },
+  {
+    "id": "10",
+    "name": "Surat",
+    "state": "Gujarat",
+    "enable":false
+  }
+]
